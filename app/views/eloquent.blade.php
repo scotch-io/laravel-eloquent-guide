@@ -14,32 +14,26 @@
 <body class="container">
 <div class="col-sm-8 col-sm-offset-2">
 
-	<!-- BEARS TABLE -->
+	<!-- BEARS -->
 	<!-- loop over the bears and show off some things -->
-	<table class="table table-bordered table-hover table-striped">
-		<thead>
-			<tr>
-				<td>id</td>
-				<td>Name</td>
-				<td>Type</td>
-				<td>Fish Weight</td>
-				<td>Picnic</td>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach ($bears as $bear)
-			<tr>
-				<td>{{ $bear->id }}</td>
-				<td>{{ $bear->name }}</td>
-				<td>{{ $bear->type }}</td>
+	@foreach ($bears as $bear)
 
-				<!-- fish is an object inside the bear object. you can loop over this also -->
-				<td>{{ $bear->fish->weight }}</td>
-				<td>{{ $bear->picnic }}</td>
-			</tr>				
-			@endforeach
-		</tbody>
-	</table>
+		<!-- GET OUR BASIC BEAR INFORMATION -->
+		<h2>{{ $bear->name }} <small>{{ $bear->type }}: Level {{ $bear->danger_level }}</small></h2>
+
+		<!-- SHOW OFF THE TREES -->
+		<h4>Trees</h4>
+		@foreach ($bear->trees as $tree) 
+			<p>{{ $tree->type }}</p>
+		@endforeach
+
+		<!-- SHOW OFF THE PICNICS -->
+		<h4>Picnics</h4>
+		@foreach ($bear->picnics as $picnic)
+			<p>{{ $picnic->name }}: Taste Level {{ $picnic->taste_level }}</p>
+		@endforeach 
+
+	@endforeach
 
 </div>
 </body>

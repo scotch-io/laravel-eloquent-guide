@@ -8,8 +8,10 @@ class Picnic extends Eloquent {
 	protected $fillable = array('name', 'taste_level');
 
 	// DEFINE RELATIONSHIPS --------------------------------------------------
+	// define a many to many relationship
+	// also call the linking table
 	public function bears() {
-		return $this->hasMany('Bear');
+		return $this->belongsToMany('Bear', 'bears_picnics', 'picnic_id', 'bear_id');
 	}
 
 }

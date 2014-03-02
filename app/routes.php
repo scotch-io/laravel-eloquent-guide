@@ -17,16 +17,14 @@ Route::get('/', function()
 });
 
 
-Route::get('eloquent', function()
-{
-	// find a bear named Adobot
-	$adobot = Bear::where('name', '=', 'Adobot')->first();
+// create our route, return a view file (app/views/eloquent.blade.php)
+// we will also send the records we want to the view
 
-	// get the fish that Adobot has
-	$fish = $adobot->fish;
+Route::get('eloquent', function() {
 
-	// get the weight of the fish
-	$fish->weight;
+	return View::make('eloquent')
 
-	print_r($adobot->picnic);
+		// all the bears (will also return the fish, trees, and picnics that belong to them)
+		->with('bears', Bear::all());
+
 });

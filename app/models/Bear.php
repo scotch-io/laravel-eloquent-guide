@@ -13,9 +13,14 @@ class Bear extends Eloquent {
 		return $this->hasOne('Fish'); // this matches the Eloquent model
 	}
 
+	// each bear climbs many trees
+	public function trees() {
+		return $this->hasMany('Tree');
+	}
+
 	// each bear BELONGS to a picnic
-	public function picnic() {
-		return $this->belongsTo('Picnic');
+	public function picnics() {
+		return $this->belongsToMany('Picnic', 'bears_picnics', 'bear_id', 'picnic_id');
 	}
 
 }

@@ -28,6 +28,8 @@ class BearAppSeeder extends Seeder {
 		DB::table('bears')->delete();
 		DB::table('fish')->delete();
 		DB::table('picnics')->delete();
+		DB::table('trees')->delete();
+		DB::table('bears_picnics')->delete();
 
 		// seed our bears table -----------------------
 		// we'll create three different bears
@@ -75,6 +77,21 @@ class BearAppSeeder extends Seeder {
 		
 		$this->command->info('They are eating fish!');
 
+		// seed our trees table ---------------------
+		// give two trees to lawly
+		Tree::create(array(
+			'type'    => 'Redwood',
+			'age'     => 500,
+			'bear_id' => $bearLawly->id
+		));
+		Tree::create(array(
+			'type'    => 'Oak',
+			'age'     => 400,
+			'bear_id' => $bearLawly->id
+		));
+
+		$this->command->info('Climb bears! Be free!');
+
 		// seed our picnics table ---------------------
 
 		// we will create one picnic and apply all bears to this one picnic
@@ -82,20 +99,21 @@ class BearAppSeeder extends Seeder {
 			'name'        => 'Yellowstone',
 			'taste_level' => 6
 		));
+		$picnicGrandCanyon = Picnic::create(array(
+			'name'        => 'Grand Canyon',
+			'taste_level' => 5
+		));
 		
-		// link our bears to a picnic ---------------------
-		BearPicnic::create(array(
-			'bear_id'   => $bearLawly->id,
-			'picnic_id' => $picnicYellowstone->id
-		));
-		BearPicnic::create(array(
-			'bear_id'   => $bearCerms->id,
-			'picnic_id' => $picnicYellowstone->id
-		));
-		BearPicnic::create(array(
-			'bear_id'   => $bearAdobot->id,
-			'picnic_id' => $picnicYellowstone->id
-		));
+		// link our bears to picnics ---------------------
+		// for our purposes we'll just add all bears to both picnics for our many to many relationship
+		$bearLawly->picnics()->attach($picnicYellowstone->id);
+		$bearLawly->picnics()->attach($picnicGrandCanyon->id);
+
+		$bearCerms->picnics()->attach($picnicYellowstone->id);
+		$bearCerms->picnics()->attach($picnicGrandCanyon->id);
+
+		$bearAdobot->picnics()->attach($picnicYellowstone->id);
+		$bearAdobot->picnics()->attach($picnicGrandCanyon->id);
 
 		$this->command->info('They are terrorizing picnics!');
 
