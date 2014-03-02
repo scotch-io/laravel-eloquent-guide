@@ -15,3 +15,18 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+
+Route::get('eloquent', function()
+{
+	// find a bear named Adobot
+	$adobot = Bear::where('name', '=', 'Adobot')->first();
+
+	// get the fish that Adobot has
+	$fish = $adobot->fish;
+
+	// get the weight of the fish
+	$fish->weight;
+
+	print_r($adobot->picnic);
+});

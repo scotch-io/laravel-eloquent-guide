@@ -1,10 +1,10 @@
 <?php
 
-class Fish extends Eloquent {
+class Picnic extends Eloquent {
 	
 	// MASS ASSIGNMENT -------------------------------------------------------
 	// define which attributes are mass assignable (for security)
-	// we only want these 3 attributes able to be filled
+	// we only want these attributes able to be filled
 	protected $fillable = array('name', 'taste_level');
 
 	// DEFINE RELATIONSHIPS --------------------------------------------------

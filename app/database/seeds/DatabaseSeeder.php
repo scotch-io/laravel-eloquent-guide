@@ -56,9 +56,48 @@ class BearAppSeeder extends Seeder {
 		$this->command->info('The bears are alive!');
 
 		// seed our fish table ------------------------
+		// our fish wont have names... because theyre going to be eaten
+
+		// we will use the variables we used to create the bears to get their id
+
+		$fishOne = Fish::create(array(
+			'weight'  => 5,
+			'bear_id' => $bearLawly->id
+		));
+		$fishTwo = Fish::create(array(
+			'weight'  => 12,
+			'bear_id' => $bearCerms->id
+		));
+		$fishThree = Fish::create(array(
+			'weight'  => 4,
+			'bear_id' => $bearAdobot->id
+		));
 		
+		$this->command->info('They are eating fish!');
 
 		// seed our picnics table ---------------------
+
+		// we will create one picnic and apply all bears to this one picnic
+		$picnicYellowstone = Picnic::create(array(
+			'name'        => 'Yellowstone',
+			'taste_level' => 6
+		));
+		
+		// link our bears to a picnic ---------------------
+		BearPicnic::create(array(
+			'bear_id'   => $bearLawly->id,
+			'picnic_id' => $picnicYellowstone->id
+		));
+		BearPicnic::create(array(
+			'bear_id'   => $bearCerms->id,
+			'picnic_id' => $picnicYellowstone->id
+		));
+		BearPicnic::create(array(
+			'bear_id'   => $bearAdobot->id,
+			'picnic_id' => $picnicYellowstone->id
+		));
+
+		$this->command->info('They are terrorizing picnics!');
 
 	}
 
